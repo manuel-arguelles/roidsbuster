@@ -42,11 +42,13 @@ function sp.draw(dt)
 end
 
 function sp.increase_score()
-   sp.score = sp.score + 1
+   if sp.alive then
+      sp.score = sp.score + 1
+   end
 end
 
 function sp.decrease_score()
-   if sp.score > 0 then
+   if sp.alive and sp.score > 0 then
       sp.score = sp.score - 1
    end
 end

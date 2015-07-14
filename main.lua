@@ -3,6 +3,8 @@ debug = true
 local spaceship = require('spaceship')
 local asteroids = require('asteroids')
 
+local show_score = false
+
 function love.load(arg)
    spaceship.load(arg)
    asteroids.load(arg)
@@ -49,16 +51,24 @@ function love.update(dt)
       spaceship.killed()
    end
 
-   if love.keyboard.isDown('r') then
+   if not spaceship.alive and love.keyboard.isDown('r') then
       spaceship.revive()
       asteroids.reset()
    end
 
 end
 
+function love.keyreleased(key)
+   if key == 's' then
+      show_score = not show_score
+   end
+end
 
 function love.draw(dt)
    spaceship.draw(dt)
    asteroids.draw(dt)
+   if show_score then
+      love.graphics.print(spaceship.score, 0, 0)
+   end
 end
 
